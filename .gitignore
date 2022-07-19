@@ -1,5 +1,6 @@
 # ignore specific file - "private.py" to avoid exposing sensitive data
 private.py
+ConfigTemplates/*
 
 # ignore Meraki api log files
 *log*
