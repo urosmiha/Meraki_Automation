@@ -1,9 +1,10 @@
 import json
 from re import TEMPLATE
+from textwrap import indent
 import requests
 
 import meraki
-from private import API_KEY, ORG_ID, SG_HQ, MV2_SERIAL
+from env import API_KEY, ORG_ID, SG_HQ, MV2_SERIAL
 
 BASE_URL = "https://api.meraki.com/api/v1/"
 
@@ -71,6 +72,16 @@ def JsonToFile(json_string, name):
         outfile.write(json_string)
 
 
+def createAdmin(dashboard, organization_id, email, name, org_access):
+
+    response = dashboard.organizations.createOrganizationAdmin(
+        organization_id, email, name, org_access, 
+        tags=[{'tag': 'api', 'access': 'full'}]
+    )
+
+    print(json.dumps(response), indent=2)
+
+
 if __name__ == "__main__":
     print("Hello Meraki")
     # requestsCall('GET', API_KEY, BASE_URL, "organizations")
@@ -88,4 +99,7 @@ if __name__ == "__main__":
     # print(json.dumps(dashboard.organizations.getOrganizationConfigTemplates(ORG_ID), indent=2))
     # downloadTemplateToJson(dashboard, ORG_ID, TMP_ACCESS)
     # getSwitchPortTemplate(dashboard, ORG_ID, TMP_ACCESS, SW_PORT)
+
+    # Admin manupulation
+    # createAdmin(dashboard, ORG_ID, "", "", "full")
 
