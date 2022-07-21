@@ -94,14 +94,29 @@ In order for Meraki MV, MS or MT to publish MQTT topics to your broker you need 
 ```
 
 ### Test
-I would recommend to download [MQQT Explorer](http://mqtt-explorer.com/) to test connection to your MQTT broker.
+I would recommend to download [MQTT Explorer](http://mqtt-explorer.com/) to test connection to your MQTT broker.
 
 Now that MQTT is running we can get MV, MT and/or MR to publish topics to this broker. Refer to links above for guides.
 
+# Python Script to subscribe to MQTT messages
+In order to read topics published by Meraki MV, MT or MR, you need to have a subscriber. You can use MQTT Explorer to read the messages, or to actually do something with these you can have a python script.
 
-# MQTT with customCV
+## MQTT with customCV
+This is file named __mv_customcv.py__
 
+Note: Make sure to create a file named __env.py__ and include the following parameters as strings: MQTT_SERVER, MQTT_PORT, MQTT_USER, MQTT_PSW, CAMERA_SERIAL. Example:
+```
+MQTT_SERVER = "10.10.10.4"
+MQTT_PORT = 1883 #Please note: integer
+MQTT_USER = "rosi"
+MQTT_PSW = "psw123"
+CAMERA_SERIAL = "XXX-XXX-XXX"
+```
+It will subscribe to __/merakimv/{CAMERA_SERIAL}/custom_analytics__ topic. This is to avoid noise in case other cameras are also publishing something to the same broker
 
+For now, script just reads the messages and displays when something is detected. Will integrate with Webex later...
+
+[How to configure customCV on Meraki Dashboard](https://documentation.meraki.com/MV/Video_Analytics/MV_Sense_Custom_Computer_Vision)
 
 # MQTT with MV Sense
 In this example we are using MV Sense to detect people and display this information with our python script.
