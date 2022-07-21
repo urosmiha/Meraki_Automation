@@ -40,9 +40,6 @@ def on_message(client, userdata, message):
     '''
     The callback for when a PUBLISH message is received from the mqtt server
     '''
-
-    global PREVIOUS_TS
-
     # For debug...
     # print("Received message '" + str(message.payload) + "' on topic '"
     #     + message.topic + "' with QoS " + str(message.qos))
@@ -50,10 +47,20 @@ def on_message(client, userdata, message):
     # Parse data from utf-8 to json so we can easily manipulate it
     payload = json.loads(message.payload.decode("utf-8", "ignore"))
 
+    if "/merakimv/" in message.topic:
+        notifyOnPeoplePresence(message, payload)
+    # elif message.topic == 
+
+
+def notifyOnPeoplePresence(message, payload):
+
+    global PREVIOUS_TS
+
     # do some "magic" to display the number of people in the frame
     # The topic ending with "/0" is for the enrire frame - you can do this for idividual areas you highlighted as well
+    # The 698057942242427412 is specific for a zone we added in the camera settings
     # This is used to see a total number of objects (e.g. people) in the frame
-    if message.topic[-2:] == "/0":
+    if message.topic[-2:] == "12":
         # print(json.dumps(payload, indent=2))
         people = payload["counts"]["person"]
         # print("I see {} people".format(people))
