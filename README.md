@@ -1,5 +1,11 @@
 # Meraki_Automation
-Cisco Meraki Automation
+Random Cisco Meraki Automation. Includes:
+- __main.py__ : Random API functions, mostly around templates and org/network/device details
+- __mv_customcv.py__ : uses MQTT broker to get notified when customCV detects an object
+- __mv_sense.py__ : uses MQTT to get notified when people are present at a location
+- __mt_mqtt.py__ : work in progress, but whould contain examples of MQTT integration for MTs
+
+If you are using this make sure you also have a env.py file, which will contain all the sensitive info (e.g. API Keys, Serial number, org ids, etc). Note that this file is part of git ignore and should not be uploaded to git.
 
 ## Set up the Python Environment
 
